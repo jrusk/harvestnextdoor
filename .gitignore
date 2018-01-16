@@ -1,0 +1,13 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+ENV_VARS.sh
+*.yml.bu
+old/
+
+# OS and editor files
+.DS_Store
+*/**.DS_Store
+._*
+.*.sw*
+*~
+

@@ -1,0 +1,35 @@
+harvestnextdoorcom-mysql:
+  environment:
+    - 'MYSQL_DATABASE=wordpress'
+    - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
+    - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
+    - 'MYSQL_USER=${MYSQL_USER}'
+  image: 'mysql:5.7'
+  restart: always
+
+harvestnextdoorcom-wordpress:
+  environment:
+    - 'WORDPRESS_DB_HOST=mysql'
+    - 'WORDPRESS_DB_NAME=wordpress'
+    - 'WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}'
+    - 'WORDPRESS_DB_USER=${MYSQL_USER}'
+  image: 'wordpress:4.9.1-php5.6-fpm'
+  expose:
+    - '9000'
+  volumes:
+    - /var/www/html
+  links:
+    - 'harvestnextdoorcom-mysql:mysql'
+  restart: always
+
+harvestnextdoorcom-www:
+  image: 'jrusk/wordpress-nginx:latest'
+  environment:
+    - FORCE_SSL=yes
+    - 'VIRTUAL_HOST=https://www.harvestnextdoor.com/*'
+  volumes_from:
+    - harvestnextdoorcom-wordpress
+  links:
+    - 'harvestnextdoorcom-wordpress:wordpress'
+  restart: always
+

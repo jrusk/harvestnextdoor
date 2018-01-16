@@ -1,0 +1,39 @@
+version: '2.2'
+
+services:
+
+  harvestnextdoorcom-mysql:
+    image: 'mysql:5.7'
+    environment:
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+    restart: always
+  
+  harvestnextdoorcom-wordpress:
+    image: 'wordpress:4.9.1-php5.6-fpm'
+    environment:
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}
+      - WORDPRESS_DB_USER=${MYSQL_USER}
+    volumes:
+      - /var/www/html
+    links:
+      - 'harvestnextdoorcom-mysql:mysql'
+    depends_on:
+      - harvestnextdoorcom-mysql
+    restart: always
+  
+  harvestnextdoorcom-www:
+    build: nginx/.
+    volumes_from:
+      - harvestnextdoorcom-wordpress
+    links:
+      - 'harvestnextdoorcom-wordpress:wordpress'
+    ports:
+      - '80:80'
+    depends_on:
+      - 'harvestnextdoorcom-wordpress'
+    restart: always
