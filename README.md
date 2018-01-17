@@ -6,13 +6,6 @@ Based on:
 
 https://dev.to/foresthoffman/hosting-wordpress-over-https-with-docker-5gc
 
-## Build nginx image
-
-	export DOCKER_ID_USER=jrusk
-	docker build --tag wordpress-nginx nginx/
-	docker tag wordpress-nginx $DOCKER_ID_USER/wordpress-nginx
-	docker push $DOCKER_ID_USER/wordpress-nginx
-
 ## Source environmental variables
 
 	cp template_ENV_VARS.sh ENV_VARS.sh
@@ -34,13 +27,24 @@ Run as a daemon:
 	docker-compose up -d
 
 Stop:
-	docker-compse stop
+	docker-compose stop
 
 Delete:
 
-	docker-compse down
+	docker-compose down
 
 ## Docker Cloud
 
 	docker-cloud stack up -n harvestnextdoorcom -f stack.yml
+
+## Build nginx image
+
+This is only required if you are creating or updating your own Docker repository.
+
+	export DOCKER_ID_USER=<your-docker-username>
+	docker build --tag wordpress-nginx nginx/
+	docker tag wordpress-nginx $DOCKER_ID_USER/wordpress-nginx
+	docker push $DOCKER_ID_USER/wordpress-nginx
+
+Note that the docker-compose.yml and stack.yml files use jrusk/wordpress-nginx. Change these files if you use a different Docker repository.
 
