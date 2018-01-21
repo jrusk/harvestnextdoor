@@ -46,5 +46,9 @@ This is only required if you are creating or updating your own Docker repository
 	docker tag wordpress-nginx $DOCKER_ID_USER/wordpress-nginx
 	docker push $DOCKER_ID_USER/wordpress-nginx
 
+	docker build --tag wordpress wordpress/
+	docker tag wordpress $DOCKER_ID_USER/wordpress
+	docker push $DOCKER_ID_USER/wordpress
+
 Note that the docker-compose.yml and stack.yml files use jrusk/wordpress-nginx. Change these files if you use a different Docker repository.
 

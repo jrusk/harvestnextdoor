@@ -3,6 +3,7 @@
 ENV_VARS.sh
 *.yml.bu
 old/
+classifieds_theme/
 
 # OS and editor files
 .DS_Store

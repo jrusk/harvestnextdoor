@@ -12,7 +12,7 @@ services:
     restart: always
   
   harvestnextdoorcom-wordpress:
-    image: 'wordpress:4.9.1-php5.6-fpm'
+    build: wordpress/.
     environment:
       - WORDPRESS_DB_HOST=mysql
       - WORDPRESS_DB_NAME=wordpress

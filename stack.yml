@@ -13,7 +13,7 @@ harvestnextdoorcom-wordpress:
     - 'WORDPRESS_DB_NAME=wordpress'
     - 'WORDPRESS_DB_PASSWORD=${MYSQL_PASSWORD}'
     - 'WORDPRESS_DB_USER=${MYSQL_USER}'
-  image: 'wordpress:4.9.1-php5.6-fpm'
+  image: 'jrusk/wordpress'
   expose:
     - '9000'
   volumes:
